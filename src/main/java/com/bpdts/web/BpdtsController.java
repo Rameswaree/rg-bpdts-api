@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class BpdtsController{
 
@@ -23,7 +25,7 @@ public class BpdtsController{
 
             List<BpdtsDto> bpdtsDto = null;
             try{
-                //bpdtsDto = new BpdtsDto();
+                bpdtsDto = bpdtsService.retrieveListOfUsers();
             }catch(Exception e){
 
                 return new ResponseEntity(null, HttpStatus.NOT_FOUND);

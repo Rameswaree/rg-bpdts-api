@@ -16,19 +16,19 @@ public class BpdtsDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int id = 1;
+    private int id;
 
-    private String first_name = "Reemu";
+    private String first_name;
 
-    private String last_name="Ganesh";
+    private String last_name;
 
-    private String email="rameswaree@gmail.com";
+    private String email;
 
-    private String ip_address="10.102.14.129";
+    private String ip_address;
 
-    private double latitude=50.126485;
+    private double latitude;
 
-    private  double longitude=-51.0326485;
+    private  double longitude;
 
     private String city;
 
