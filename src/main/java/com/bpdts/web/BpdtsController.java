@@ -22,12 +22,12 @@ public class BpdtsController{
             this.bpdtsService = bpdtsService;
         }
 
-        @GetMapping(value = {"/instructions/{city}", "/instructions"})
-        public ResponseEntity<List<BpdtsDto>> getUserList(@PathVariable Optional<String> city) {
+        @GetMapping("/")
+        public ResponseEntity<List<BpdtsDto>> getUserList() {
 
             List<BpdtsDto> bpdtsDto = null;
             try{
-                bpdtsDto = bpdtsService.retrieveListOfUsers(city);
+                   bpdtsDto = bpdtsService.retrieveListOfUsers();
             }catch(Exception e){
                 return new ResponseEntity(null, HttpStatus.NOT_FOUND);
             }

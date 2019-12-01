@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface BpdtsService{
 
-    List<BpdtsDto> retrieveListOfUsers(Optional<String> city);
+    List<BpdtsDto> retrieveListOfUsers();
 }
