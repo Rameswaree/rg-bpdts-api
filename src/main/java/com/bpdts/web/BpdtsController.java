@@ -19,11 +19,11 @@ public class BpdtsController{
         }
 
         @GetMapping("/instructions")
-        public ResponseEntity<BpdtsDto> getUserList() {
+        public ResponseEntity<List<BpdtsDto>> getUserList() {
 
-            BpdtsDto bpdtsDto = null;
+            List<BpdtsDto> bpdtsDto = null;
             try{
-                bpdtsDto = new BpdtsDto();
+                //bpdtsDto = new BpdtsDto();
             }catch(Exception e){
 
                 return new ResponseEntity(null, HttpStatus.NOT_FOUND);
