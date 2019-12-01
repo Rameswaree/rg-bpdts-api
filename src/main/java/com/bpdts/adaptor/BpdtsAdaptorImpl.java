@@ -17,15 +17,20 @@ public class BpdtsAdaptorImpl implements BpdtsAdaptor {
 
     @Value("${prop.bpdts.url}")
     String bpdtsUrl;
+    
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public List<BpdtsDto> retrieveListOfUsers() {
-        return null;
+        
+        ResponseEntity<List<BpdtsDto>> bpdtsDtoListEntity = restTemplate.exchange(bpdtsUrl, HttpMethod.GET, getRequestEntity(),new ParameterizedTypeReference<List<BpdtsDto>>());
+        return bpdtsDtoListEntity.getBody();
     }
 
     @Override
     public boolean distanceBetweenCoordinates(String latitude, String longitude) {
-        boolean distanceFlag=false;
+        boolean distanceFlag = false;
 
         if ((latitude == londonLatitude) && (longitude == londonLongitude)) {
             distanceFlag = true;
@@ -38,8 +43,20 @@ public class BpdtsAdaptorImpl implements BpdtsAdaptor {
             dist = dist * 60 * 1.1515;
 
             if(dist<=50)
-                distanceFlag= true;
+                distanceFlag = true;
         }
         return distanceFlag;
+    }
+    
+    private HttpHeaders getHeaders()
+    {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        return headers;
+    }
+
+    private HttpEntity getRequestEntity()
+    {
+        return new HttpEntity(getHeaders());
     }
 }
