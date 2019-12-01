@@ -11,7 +11,7 @@
 
     <groupId>com.bpdts</groupId>
     <artifactId>rg-bpdts-api</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <packaging>jar</packaging>
     <name>rg-bpdts-api</name>
     <description>Fetch list of persons based in London</description>
@@ -28,7 +28,7 @@
 		<developerConnection>scm:git:https://github.com/Rameswaree/rg-bpdts-api.git</developerConnection>
 		<url>https://github.com/Rameswaree/rg-bpdts-api.git</url>
 		<tag>HEAD</tag>
-    </scm>
+        </scm>
 	
     <dependencies>
         <dependency>
@@ -73,6 +73,65 @@
                 <configuration>
                     <executable>true</executable>
                 </configuration>
+            </plugin>
+	    <plugin>
+                <artifactId>jdeb</artifactId>
+                <groupId>org.vafer</groupId>
+                <version>${jdeb.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jdeb</goal>
+                        </goals>
+                        <configuration>
+                            <deb>${project.build.directory}/${project.name}-${project.version}.deb</deb>
+                            <classifier>all</classifier>
+                            <dataSet>
+                                <data>
+                                    <src>${project.build.directory}/${project.build.finalName}.jar</src>
+                                    <dst>${project.artifactId}.jar</dst>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/local/services/${project.artifactId}</prefix>
+                                        <user>jboss</user>
+                                        <group>jboss</group>
+                                        <filemode>775</filemode>
+                                    </mapper>
+                                 </data>
+                                <data>
+                                    <src>${project.basedir}/src/conf/${project.artifactId}.conf</src>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/local/services/${project.artifactId}</prefix>
+                                        <user>jboss</user>
+                                        <group>jboss</group>
+                                        <filemode>775</filemode>
+                                    </mapper>
+                                </data>
+                                <data>
+                                    <type>link</type>
+                                    <linkName>/etc/init.d/${project.artifactId}</linkName>
+                                    <linkTarget>/local/services/${project.artifactId}/${project.artifactId}.jar</linkTarget>
+                                    <symlink>true</symlink>
+                                </data>
+                                <data>
+                                    <src>${project.basedir}/src/main/resources/application.properties</src>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/local/services/${project.artifactId}</prefix>
+                                        <user>jboss</user>
+                                        <group>jboss</group>
+                                        <filemode>755</filemode>
+                                    </mapper>
+                                </data>
+                            </dataSet>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
