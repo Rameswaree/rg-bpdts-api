@@ -1,6 +1,9 @@
 package com.bpdts.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.apache.maven.surefire.shade.org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.maven.surefire.shade.org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.maven.surefire.shade.org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -94,5 +97,59 @@ public class BpdtsDto implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if(!(o instanceof BpdtsDto))
+            return false;
+
+        BpdtsDto bpdtsDto = (BpdtsDto) o;
+        EqualsBuilder equalsBuilder = new EqualsBuilder();
+        equalsBuilder.append(id, bpdtsDto.getId());
+        equalsBuilder.append(first_name, bpdtsDto.getFirst_name());
+        equalsBuilder.append(last_name, bpdtsDto.getLast_name());
+        equalsBuilder.append(email, bpdtsDto.getEmail());
+        equalsBuilder.append(ip_address, bpdtsDto.getIp_address());
+        equalsBuilder.append(latitude, bpdtsDto.getLatitude());
+        equalsBuilder.append(longitude, bpdtsDto.getLongitude());
+        equalsBuilder.append(city, bpdtsDto.getCity());
+        return equalsBuilder.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+
+        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
+
+        hashCodeBuilder.append(id);
+        hashCodeBuilder.append(first_name);
+        hashCodeBuilder.append(last_name);
+        hashCodeBuilder.append(email);
+        hashCodeBuilder.append(ip_address);
+        hashCodeBuilder.append(latitude);
+        hashCodeBuilder.append(longitude);
+        hashCodeBuilder.append(city);
+        return hashCodeBuilder.toHashCode();
+    }
+
+    @Override
+    public String toString() {
+
+        ToStringBuilder builder = new ToStringBuilder(this);
+
+        builder.append("id", id);
+        builder.append("first_name", first_name);
+        builder.append("last_name", last_name);
+        builder.append("email", email);
+        builder.append("ip_address", ip_address);
+        builder.append("latitude", latitude);
+        builder.append("longitude", longitude);
+        builder.append("city", city);
+        return builder.toString();
     }
 }
