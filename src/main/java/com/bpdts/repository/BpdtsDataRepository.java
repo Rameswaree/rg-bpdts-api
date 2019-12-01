@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface UserDataRepository extends JpaRepository<Bpdts, Integer> {
+public interface BpdtsDataRepository extends JpaRepository<Bpdts, Integer> {
     
     Bpdts findByCity(String city);
 }
