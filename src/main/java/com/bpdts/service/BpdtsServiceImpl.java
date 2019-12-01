@@ -1,12 +1,15 @@
 package com.bpdts.service;
 
 import com.bpdts.dto.BpdtsDto;
-import com.bpdts.service.BpdtsService;
+import com.bpdts.repository.UserDataRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BpdtsServiceImpl implements BpdtsService {
+
+    static final String LONDON="London";
+    private UserDataRepository userDataRepository;
 
     @Override
     public List<BpdtsDto> retrieveListOfUsers() {
