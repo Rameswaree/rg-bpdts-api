@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BpdtsController{
@@ -20,14 +22,13 @@ public class BpdtsController{
             this.bpdtsService = bpdtsService;
         }
 
-        @GetMapping("/instructions")
-        public ResponseEntity<List<BpdtsDto>> getUserList() {
+        @GetMapping(value = {"/instructions/{city}", "/instructions"})
+        public ResponseEntity<List<BpdtsDto>> getUserList(@PathVariable Optional<String> city) {
 
             List<BpdtsDto> bpdtsDto = null;
             try{
-                bpdtsDto = bpdtsService.retrieveListOfUsers();
+                bpdtsDto = bpdtsService.retrieveListOfUsers(city);
             }catch(Exception e){
-
                 return new ResponseEntity(null, HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity(bpdtsDto, HttpStatus.OK);
