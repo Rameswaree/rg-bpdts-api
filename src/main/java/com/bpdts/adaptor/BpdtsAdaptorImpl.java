@@ -1,8 +1,14 @@
 package com.bpdts.adaptor;
 
 import com.bpdts.dto.BpdtsDto;
+import com.bpdts.dto.BpdtsDtoList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -21,11 +27,15 @@ public class BpdtsAdaptorImpl implements BpdtsAdaptor {
     @Autowired
     private RestTemplate restTemplate;
 
+    public BpdtsAdaptorImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
     @Override
     public List<BpdtsDto> retrieveListOfUsers() {
         
-        ResponseEntity<List<BpdtsDto>> bpdtsDtoListEntity = restTemplate.exchange(bpdtsUrl, HttpMethod.GET, getRequestEntity(),new ParameterizedTypeReference<List<BpdtsDto>>());
-        return bpdtsDtoListEntity.getBody();
+        BpdtsDtoList bpdtsDtoListEntity = restTemplate.getForObject(bpdtsUrl,BpdtsDtoList.class);
+        return bpdtsDtoListEntity.getBpdtsDtoList();
     }
 
     @Override
@@ -46,17 +56,5 @@ public class BpdtsAdaptorImpl implements BpdtsAdaptor {
                 distanceFlag = true;
         }
         return distanceFlag;
-    }
-    
-    private HttpHeaders getHeaders()
-    {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        return headers;
-    }
-
-    private HttpEntity getRequestEntity()
-    {
-        return new HttpEntity(getHeaders());
     }
 }
