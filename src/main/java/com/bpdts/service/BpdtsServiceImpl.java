@@ -9,7 +9,7 @@ import java.util.List;
 public class BpdtsServiceImpl implements BpdtsService {
 
     static final String LONDON="London";
-    private UserDataRepository userDataRepository;
+    private BpdtsDataRepository bpdtsDataRepository;
 
     @Override
     public List<BpdtsDto> retrieveListOfUsers() {
