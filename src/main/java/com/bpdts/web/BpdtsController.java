@@ -20,10 +20,10 @@ public class BpdtsController{
             this.bpdtsService = bpdtsService;
         }
 
-        @GetMapping("/")
+        @GetMapping("/instructions")
         public ResponseEntity<List<BpdtsDto>> getUserList() {
 
-            List<BpdtsDto> bpdtsDto = null;
+            List<BpdtsDto> bpdtsDto;
             try{
                    bpdtsDto = bpdtsService.retrieveListOfUsers();
             }catch(Exception e){
