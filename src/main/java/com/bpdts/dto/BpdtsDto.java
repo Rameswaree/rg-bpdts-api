@@ -1,6 +1,7 @@
 package com.bpdts.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.apache.maven.surefire.shade.org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.maven.surefire.shade.org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -21,20 +22,28 @@ public class BpdtsDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonProperty("id")
     private int id;
 
+    @JsonProperty("first_name")
     private String first_name;
 
+    @JsonProperty("last_name")
     private String last_name;
 
+    @JsonProperty("email")
     private String email;
 
+    @JsonProperty("ip_address")
     private String ip_address;
 
+    @JsonProperty("latitude")
     private String latitude;
 
+    @JsonProperty("longitude")
     private  String longitude;
 
+    @JsonProperty("city")
     private String city;
 
     public int getId() {

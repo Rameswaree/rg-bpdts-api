@@ -20,7 +20,7 @@ public class BpdtsController{
             this.bpdtsService = bpdtsService;
         }
 
-        @GetMapping("/instructions")
+        @GetMapping("/api/v1/getListOfUsers")
         public ResponseEntity<List<BpdtsDto>> getUserList() {
 
             List<BpdtsDto> bpdtsDto;
