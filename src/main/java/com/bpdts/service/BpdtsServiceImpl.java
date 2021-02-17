@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BpdtsServiceImpl implements BpdtsService {
@@ -23,15 +24,10 @@ public class BpdtsServiceImpl implements BpdtsService {
     public List<BpdtsDto> retrieveListOfUsers() {
 
         List<BpdtsDto> bpdtsDtoList = new ArrayList<>();
-        List<BpdtsDto> bpdtsDtos = bpdtsAdaptor.retrieveListOfUsers();
+        List<BpdtsDto> bpdtsDtos = bpdtsAdaptor.retrieveListOfUsers().stream().filter(bpdtsDto-> bpdtsDto.getCity().equalsIgnoreCase(LONDON) && bpdtsAdaptor.distanceBetweenCoordinates(bpdtsDto.getLatitude(), bpdtsDto.getLongitude())).collect(Collectors.toList());
 
         if(bpdtsDtos !=null && bpdtsDtos.size() > 0){
-            for(BpdtsDto bpdtsDto: bpdtsDtos){
-                if(bpdtsDto.getCity().equalsIgnoreCase(LONDON) ||
-                        bpdtsAdaptor.distanceBetweenCoordinates(bpdtsDto.getLatitude(), bpdtsDto.getLongitude())){
-                    bpdtsDtoList.add(bpdtsDto);
-                }
-            }
+             bpdtsDtoList.addAll(bpdtsDtos);
         }
         return bpdtsDtoList;
     }
